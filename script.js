@@ -96,7 +96,4 @@ async function fetchJobs() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    fetchJobs(); 
-    loadDraftData();
-});
+
