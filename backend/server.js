@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(cors()); 
 
 // Connect to MongoDB
-mongoose.connect("mongodb://127.0.0.1:27017/jobDatabase", {  // Use 127.0.0.1 instead of localhost
+mongoose.connect("mongodb://127.0.0.1:27017/jobDatabase", {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
@@ -44,5 +44,5 @@ app.get("/api/jobs", async (req, res) => {
 
 const PORT = 5000;
 app.listen(PORT, () => {
-    console.log(`🚀 Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running on http://localhost:${PORT}`);
 });

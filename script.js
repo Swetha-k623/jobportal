@@ -39,40 +39,39 @@ function loadDraftData() {
     }
 }
 
-document.getElementById("jobForm").addEventListener("submit", async function (event) {
-    event.preventDefault();
+document.getElementById('jobForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
 
     const jobData = {
-        jobTitle: document.querySelector("input[placeholder='Enter job title']").value,
-        companyName: document.querySelector("input[placeholder='Amazon, Microsoft, Swiggy']").value,
-        location: document.getElementById("jobLocation").value,
-        jobType: document.getElementById("jobType").value,
-        minSalary: document.getElementById("minSalary").value,
-        maxSalary: document.getElementById("maxSalary").value,
-        applicationDeadline: document.querySelector("input[type='date']").value,
-        jobDescription: document.querySelector("textarea").value
+        title: document.getElementById('jobTitle').value,
+        location: document.querySelector('select').value,
+        minSalary: document.getElementById('minSalary').value,
+        maxSalary: document.getElementById('maxSalary').value,
+        companyName: document.getElementById('companyName').value,
+        jobType: document.querySelectorAll('select')[1].value,
+        deadline: document.getElementById('deadline').value,
+        description: document.getElementById('jobDescription').value
     };
 
     try {
-        const response = await fetch("http://localhost:5000/api/jobs", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
+        const response = await fetch('http://localhost:5000/api/jobs', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(jobData)
         });
 
         if (response.ok) {
-            alert("Job Created Successfully!");
-            localStorage.removeItem("jobDraft");
-            fetchJobs();
-            document.getElementById("jobForm").reset();
+            alert('Job published successfully!');
+            document.getElementById('jobForm').reset();
         } else {
-            alert("Error Creating Job");
+            alert('Failed to publish job.');
         }
     } catch (error) {
-        console.error("Error:", error);
-        alert("Failed to create job. Please try again.");
+        console.error('Error:', error);
+        alert('Error occurred while submitting.');
     }
 });
+
 
 async function fetchJobs() {
     try {
