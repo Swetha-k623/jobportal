@@ -9,7 +9,8 @@ const app = express();
 app.use(express.json()); 
 app.use(cors()); 
 
-// Connect to MongoDB
+app.use(express.static(path.join(__dirname, "public")));
+
 mongoose.connect("mongodb://127.0.0.1:27017/jobDatabase", {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -42,6 +43,11 @@ app.get("/api/jobs", async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "index.html"));
+  });
+  
 
 
 const PORT = 5000;
